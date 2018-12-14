@@ -3,71 +3,59 @@ package application;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class SubterraneanSustainability {
-    String testSequence = "#..#.#..##......###...###";
-    String rule = "...##";
+    static String row = "#..#.#..##......###...###";
+    static String newRow;
+    static HashMap<String, String> rules = new HashMap<>();
+
     public static void main(String[] args) {
-
+        rules = getRules();
+        doStuff();
     }
-
-    @Test
-    public void test(){
-
-    }
-    public String getNextGeneration(){
-        String initializedState = "#..#.#..##......###...###";
-        return "";
-    }
-
-    public String putPlant(String sequence){
-        String nextGen = sequence.substring(0,2) + "#" + sequence.substring(3,5);
-        return nextGen;
-    }
-    public String removePlant(String sequence){
-        String nextGen = sequence.substring(0,2) + "#" + sequence.substring(3,5);
-        return nextGen;
-    }
-
-    @Test
-    public void getPlantIndex_returnsCorrectIndex(){
-        String myString = ".#.#.###";
-        Assert.assertTrue(getPlantIndex("#.#.#", myString) == 3);
-    }
-    public boolean doesRuleApply(String rule, String state){
-        return state.contains(rule);
-    }
-    @Test
-    public void test4(){
-        if(doesRuleApply(rule, testSequence)){
-            String strang = testSequence.replace(rule, putPlant(rule));
-            Assert.assertEquals(strang, "#..#.#..##.....####..####");
+    public static void doStuff(){
+        if(row.charAt(0) == '#' || row.charAt(1) == '#' || row.charAt(row.length()) == '#' || row.charAt(row.length()+1) == '#'){
+            row = ".." + row + "..";
+            System.out.println(row);
         }
+        newRow = makeNewRowOfLength(row.length());
+        for (String rule: rules.keySet()) {
+            int index = row.indexOf(rule);
+            while(index > -1){
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.replace
+            }
+        }
+        System.out.println(newRow);
+
+    }
+    public static String makeNewRowOfLength(int length){
+        char[] myCharArray = new char[length];
+
+        for(int i = 0; i < myCharArray.length; i++){
+            myCharArray[i] = '.';
+        }
+        return String.valueOf(myCharArray);
     }
 
-    public int getPlantIndex(String rule, String state){
-        return state.indexOf(rule)+2;
+    public static HashMap<String, String> getRules(){
+        HashMap<String, String> rules = new HashMap<>();
+        rules.put("...##", "#");
+        rules.put("..#..", "#");
+        rules.put(".#...", "#");
+        rules.put(".#.#.", "#");
+        rules.put(".#.##", "#");
+        rules.put(".##..", "#");
+        rules.put(".####", "#");
+        rules.put("#.#.#", "#");
+        rules.put("#.###", "#");
+        rules.put("##.#.", "#");
+        rules.put("##.##", "#");
+        rules.put("###..", "#");
+        rules.put("###.#", "#");
+        rules.put("####.", "#");
+        return rules;
     }
-    @Test
-    public void putPlant_sampleStringNoPlant_addsPlant(){
-        String nextGen = putPlant(".....");
-        Assert.assertTrue(nextGen.equals("..#.."));
-    }
-    /**
-     * initial state: #..#.#..##......###...###
-     *
-     * ...## => #
-     * ..#.. => #
-     * .#... => #
-     * .#.#. => #
-     * .#.## => #
-     * .##.. => #
-     * .#### => #
-     * #.#.# => #
-     * #.### => #
-     * ##.#. => #
-     * ##.## => #
-     * ###.. => #
-     * ###.# => #
-     * ####. => #
-     */
 }
